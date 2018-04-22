@@ -1,67 +1,45 @@
 #include<stdio.h>
+#include<stdlib.h>
 #include<string.h>
-
-long int liczby[] = {
-                -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
-                10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
-                20, 30, 40, 50, 60, 70, 80, 90, 100, 1000, 1000000
-                };
-
-char slowa[32][10] = {"negative", "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
-                    "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen",
-                    "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety", "hundred", "thousand", "million"
-                    };
-
-int ktoraLiczba(char * liczba)
-{
-    char *wskaznik;
-    int i;
-    for(i=0; i<32; i++){
-        wskaznik = slowa[i];
-        if(!strcmp(liczba, wskaznik)) return i;
-    }
-    return -1;
-}
-
+#include<ctype.h>
 int main(void)
 {
-    char wiersz[200];
-    char *next;
-    long int liczba, przetwarzana, ktora, negacja;
-    while(fgets(wiersz, 200, stdin) != NULL){
-        liczba=0;
-        przetwarzana=0;
-        negacja=0;
-        next = (char*) strtok(wiersz, " \t\n");
-        while(next!=NULL){
+    char wiersz[60], slowo[60];
+    int dlugosc_wiersza, i, dlugosc_slowa, j, myslnik;
 
-            ktora = ktoraLiczba(next);
-            if(ktora==0) negacja=1;
+    fgets(wiersz, 60, stdin);
+    dlugosc_wiersza=strlen(wiersz);
+    dlugosc_slowa=0;
+    myslnik=0;
+    while(!(dlugosc_wiersza==2 && wiersz[0]=='#')){
+        for(i=0; i<dlugosc_wiersza; i++){
+            if(isalpha(wiersz[i])){
+                slowo[dlugosc_slowa]=wiersz[i];
+                dlugosc_slowa++;
+            }
             else{
-                if(ktora>29){
-                    przetwarzana*=liczby[ktora];
-                    liczba+=przetwarzana;
-                    przetwarzana=0;
+                if(wiersz[i]=='-'){
+                    myslnik=1;
+                    break;
                 }
                 else{
-                    if(ktora==29){
-                        przetwarzana*=liczby[ktora];
+                    if(isspace(wiersz[i])){
+                        for(j=0; j<dlugosc_slowa; j++){
+                            printf("%c", slowo[j]);
+                        }
+                        if(myslnik){
+                            printf("\n");
+                            myslnik=0;
+                        }
+                        dlugosc_slowa=0;
+                        printf("%c", wiersz[i]);
                     }
-                    else przetwarzana+=liczby[ktora];
                 }
             }
-
-
-
-            next = (char*) strtok(NULL, " \t\n");
         }
-        liczba+=przetwarzana;
-        if(negacja) printf("-%ld\n", liczba);
-        else printf("%ld\n", liczba);
+        fgets(wiersz, 60, stdin);
+        dlugosc_wiersza=strlen(wiersz);
     }
-
-
-
 
     return 0;
 }
