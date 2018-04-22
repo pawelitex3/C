@@ -1,0 +1,29 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int tab[6];
+    int A, Ax, Ay;
+    double x, y;
+    scanf("%d %d %d", &tab[0], &tab[1], &tab[2]);
+    scanf("%d %d %d", &tab[3], &tab[4], &tab[5]);
+
+    while(tab[0]!=0 || tab[1]!=0 || tab[2]!=0 || tab[3]!=0 || tab[4]!=0 || tab[5]!=0){
+
+        A = tab[0]*tab[4] - tab[3]*tab[1];
+        if(A!=0){
+            Ax = tab[4]*tab[2] - tab[1]*tab[5];
+            Ay = tab[0]*tab[5] - tab[3]*tab[2];
+            x = (double)Ax/A;
+            y = (double)Ay/A;
+            if(x==-0) x=0;
+            if(y==-0) y=0;
+            printf("The fixed point is at %.02lf %.02lf.\n", x, y);
+        }
+        else printf("No fixed point exists.\n");
+        scanf("%d %d %d", &tab[0], &tab[1], &tab[2]);
+        scanf("%d %d %d", &tab[3], &tab[4], &tab[5]);
+    }
+
+    return 0;
+}
