@@ -1,0 +1,22 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int N, M, licznik, liczba;
+
+    scanf("%d", &N);
+    M=1;
+    while(N>0){
+        licznik=0;
+        liczba=1;
+        while(liczba<N){
+            liczba*=2;
+            licznik++;
+        }
+        printf("Case %d: %d\n", M, licznik);
+        scanf("%d", &N);
+        M++;
+    }
+
+    return 0;
+}
