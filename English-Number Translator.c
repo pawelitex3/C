@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<string.h>
 
-int liczby[] = {
+long int liczby[] = {
                 -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
                 10, 11, 12, 13, 14, 15, 16, 17, 18, 19,
                 20, 30, 40, 50, 60, 70, 80, 90, 100, 1000, 1000000
@@ -18,9 +18,9 @@ int ktoraLiczba(char * liczba)
     int i;
     for(i=0; i<32; i++){
         wskaznik = slowa[i];
-        if(!strncmp(liczba, wskaznik, 6)) return i;
+        if(!strcmp(liczba, wskaznik)) return i;
     }
-    return 0;
+    return -1;
 }
 
 int main(void)
