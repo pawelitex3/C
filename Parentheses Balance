@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(void)
+{
+    int testy, poprawny;
+    char *znak = (char*) calloc(2, sizeof(char));
+    char *nawiasy, *poczatek;
+    scanf("%d\n", &testy);
+    while(testy--){
+        nawiasy = (char*) calloc(129, sizeof(char));
+        poczatek=nawiasy;
+        poprawny=1;
+        fgets(znak, 2, stdin);
+        while(*znak!='\n'){
+            if(*znak=='(' || *znak=='['){
+                *nawiasy = *znak;
+                nawiasy++;
+            }
+            else{
+                if(nawiasy>poczatek){
+                    nawiasy--;
+                    if((*znak == ']' && *nawiasy=='(') || (*znak==')' && *nawiasy=='[')){
+                        poprawny=0;
+                    }
+
+                }
+                else poprawny=0;
+            }
+            fgets(znak, 2, stdin);
+        }
+        if(poprawny && nawiasy==poczatek) printf("Yes\n");
+        else printf("No\n");
+
+
+    }
+
+    free(nawiasy);
+    free(znak);
+
+    return 0;
+}
