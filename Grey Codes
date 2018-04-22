@@ -1,0 +1,46 @@
+#include<stdio.h>
+
+int main(void)
+{
+    int N, k, n, i, j, granica, liczba, licznik;
+
+    int jedynki[31];
+    jedynki[0]=1;
+    for(i=1; i<=30; i++){
+        jedynki[i] = jedynki[i-1] << 1;
+    }
+    scanf("%d", &N);
+    for(j=0; j<N; j++){
+        scanf("%d %d", &n, &k);
+
+        licznik=0;
+        liczba=0;
+        granica=jedynki[n]/2;
+        for(i=n; i>=1; i--){
+            if(k>=granica && licznik%2==0){
+                licznik++;
+                liczba = liczba | jedynki[i-1];
+                granica=granica+jedynki[i-1]/2;
+            }
+            else{
+                if(k<granica && licznik%2==1){
+                    liczba = liczba | jedynki[i-1];
+                    licznik++;
+                    granica = granica-jedynki[i-1]/2;
+                }
+                else{
+                    if(k>=granica){
+                        granica=granica+jedynki[i-1]/2;
+                    }
+                    else
+                    if(k<granica){
+                        granica = granica-jedynki[i-1]/2;
+                    }
+                }
+            }
+        }
+        printf("%d\n", liczba);
+
+    }
+    return 0;
+}
