@@ -1,0 +1,25 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+int main(void)
+{
+    char wiersz[15];
+    int liczba;
+
+    fgets(wiersz, 15, stdin);
+    while(wiersz[0]!='-'){
+        if(wiersz[1]=='x'){
+            liczba = strtol(wiersz, NULL, 16);
+            printf("%d\n", liczba);
+        }
+        else{
+            liczba = strtol(wiersz, NULL, 10);
+            printf("0x%X\n", liczba);
+        }
+
+
+        fgets(wiersz, 15, stdin);
+    }
+
+    return 0;
+}
